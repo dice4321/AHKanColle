@@ -76,18 +76,6 @@ PixelMap()
 	BCy := FY - 55
 	CCx := FX + 353
 	CCy := FY - 324
-	Fleetx := FX - 175 ;Fleet Button
-	Fleety := Fy - 324
-	Refitx := FX - 58 ;Refit Button
-	Refity := FY - 232 
-	Factoryx := FX - 105 ;Factory Button
-	Factoryy := FY - 94 
-	Repairx := FX - 250 ;Repair Button
-	Repairy := FY - 95
-	Resupplyx := FX - 300 ;Resupply Button
-	Resupplyy := FY - 240
-	SResupplyx := FX - 353 ;Side Resupply Button
-	SResupplyy := FY - 250
 	return
 }
 
