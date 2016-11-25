@@ -329,7 +329,43 @@ Resupply(r)
 	tpc := PixelGetColorS(FX,FY,3)
 	if (tpc = HPC)
 	{
-        ClickS(Rx,Ry)
+        loop
+		{
+        Random, random_screen , 1, 5
+        Goto, %random_screen%
+		1:
+		GuiControl,, NB, 1
+		ClickS(Rx,Ry)
+		break
+		2:
+		GuiControl,, NB, 2
+		ClickS(Refitx,Refity)
+		pc := []
+		pc := [RPC]
+		WaitForPixelColor(FX,FY,pc,SResupplyx,SResupplyy)
+		break
+		3:
+		GuiControl,, NB, 3
+		ClickS(Factoryx,Factoryy)
+		pc := []
+		pc := [RPC]
+		WaitForPixelColor(FX,FY,pc,SResupplyx,SResupplyy)
+		break
+		4:
+		GuiControl,, NB, 4
+		ClickS(Repairx,Repairy)
+		pc := []
+		pc := [RPC]
+		WaitForPixelColor(FX,FY,pc,SResupplyx,SResupplyy)
+		break
+		5:
+		GuiControl,, NB, 5
+		ClickS(Fleetx,Fleety)
+		pc := []
+		pc := [RPC]
+		WaitForPixelColor(FX,FY,pc,SResupplyx,SResupplyy)
+		break
+		}
 	}
 	else if (tpc != RPC) 
     {
