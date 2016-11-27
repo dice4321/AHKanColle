@@ -16,9 +16,11 @@ PixelMap()
 	SAx := FX - 255
 	SAy := FY - 291
 	Ex := FX + 280 ;Expedition Button
-	Ey := FY - 240
-	Extrax := FX + 300 ;Extra mission Button
-	Extray := FY - 240
+	Ey := FY - 221
+	Extrax := FX + 347 ;Extra mission Button
+	Extray := FY - 172
+	PGExtrax := FX - 227 ;Extra mission Page
+	PGExtray := FY - 180
 	LAbreastx := FX + 266
 	LAbreasty := FY - 115
 	ESx := FX + 330

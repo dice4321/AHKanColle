@@ -26,3 +26,4 @@ CSPC := 0x162629 ;Continue Screen
 CCPC := 0xcc5852 ;Critical
 IBPC := 0x3a87b3 ;In Battle
 EX2PC := 0x23A0A1 ; Expedition 2 highlighted 
+PG2SPC := 0xFF9696 ; page 2 sortie

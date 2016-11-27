@@ -212,7 +212,9 @@ Sortie:
 	Sleep MiscDelay
 	if(Map > 4)
 	{
-		ClickS(Extrax,Extray)
+		pc := []
+		pc := [PG2SPC]
+		tpc := WaitForPixelColor(PGExtrax,PGExtray,pc,Extrax,Extray)
 	}
 	tfx := MAPx[Map]
 	tfy := MAPy[Map]
