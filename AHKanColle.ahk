@@ -295,11 +295,15 @@ Resupply(r)
 	}
     else if r = 3
 	{
-        ClickS(3Rx,234Ry)
+		pc := []
+		pc := [EX3PC]
+		WaitForPixelColor(3Rx,234Ry,pc,3Rx,234Ry)
 	}
     else if r = 4
 	{
-        ClickS(4Rx,234Ry)
+		pc := []
+		pc := [EX4PC]
+		WaitForPixelColor(4Rx,234Ry,pc,4Rx,234Ry)
 	}
 	Sleep MiscDelay
 	rti := 0

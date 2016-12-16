@@ -25,12 +25,12 @@ PixelMap()
 	LAbreasty := FY - 115
 	ESx := FX + 330
 	ESy := FY - 15
-	3Ex := FX + 45
+	3Ex := FX + 51
 	4Ex := FX + 75
 	34Ey := FY - 335
 	2Rx := FX - 200
-	3Rx := FX - 170
-	4Rx := FX - 140
+	3Rx := FX - 168
+	4Rx := FX - 136
 	234Ry := FY - 340
 	PGx[1] := FX - 240
 	PGx[2] := FX - 180

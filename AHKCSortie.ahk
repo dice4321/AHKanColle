@@ -596,7 +596,7 @@ Initialize()
 	pc := Array(item)
     Q := Array()
 	NC := 0
-	ClickDelay := 500
+	ClickDelay := 1000
 	coffset := 7
 }
 
