@@ -207,6 +207,7 @@ Sortie:
 	pc := [S2PC]
 	WaitForPixelColor(FX,FY,pc)
 	tf := SPGx[World]
+	Sleep MiscDelay
 	ClickS(tf,PGy)
 	GuiControl,, NB, Starting sortie
 	Sleep MiscDelay
@@ -243,7 +244,7 @@ Sortie:
 			ClickS(ESx,ESy)
 			GuiControl,, NB, Waiting for formation
 			pc := []
-			pc := [FPC,IBPC]
+			pc := [FPC,CPC,IBPC]
 			tpc2 := WaitForPixelColor(LAx,LAy,pc)
 			if tpc2 = 1
 			{
@@ -257,6 +258,26 @@ Sortie:
 					ClickS(LAx,LAy)
 				}
 			}
+			if tpc2 = 2
+			{
+			ClickS(ESx,ESy)
+			GuiControl,, NB, Waiting for formation
+			pc := []
+			pc := [FPC,CPC,IBPC]
+			tpc2 := WaitForPixelColor(LAx,LAy,pc)
+			if tpc2 = 1
+			{
+				Sleep MiscDelay
+				if(World = 1 and Map = 5)
+				{
+					ClickS(LAbreastx,LAbreasty)
+				}
+				else
+				{
+					ClickS(LAx,LAy)
+				}
+			}
+			} 
 		}
 		else if tpc = 2 
 		{
@@ -453,7 +474,7 @@ NodeCount:
 		StringReplace, NodeCount, NodeCount, `n,,All
 		GuiControl,, NodeCount, %NodeCount%
 		Send, {end}
-		if (NodeCount > 0 and NodeCount < 4)
+		if (NodeCount > 0 and NodeCount < 5)
 		{
 			Nodes := NodeCount
 			if Nodes > 1
@@ -596,7 +617,7 @@ Initialize()
 	pc := Array(item)
     Q := Array()
 	NC := 0
-	ClickDelay := 1000
+	ClickDelay := 50
 	coffset := 7
 }
 
