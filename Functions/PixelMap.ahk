@@ -64,6 +64,8 @@ PixelMap()
 	MAPy[5] := FY - 247
 	LAx := FX + 69
 	LAy := FY - 275
+	L_abreastx := FX + 270
+	L_abreasty := FY - 114
 	CSBx := FX - 86
 	CSBy := FY - 221
 	ESBx := FX + 130
