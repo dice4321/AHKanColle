@@ -29,3 +29,4 @@ EX2PC := 0x23A0A1 ; Expedition 2 highlighted
 EX3PC := 0x53ADAD ; Expedition 3 highlighted 
 EX4PC := 0x77B9B9 ; Expedition 4 highlighted 
 PG2SPC := 0xFF9696 ; page 2 sortie
+RedHealthPC := 0x6A2C28

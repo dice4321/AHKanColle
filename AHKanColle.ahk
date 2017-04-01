@@ -1,4 +1,4 @@
-﻿;AHKanColle v1.61124
+;AHKanColle v1.61124
 
 if not A_IsAdmin
 {
@@ -808,9 +808,9 @@ Initialize()
 	S[2] := 0
 	S[3] := 0
 	S[4] := 0
-	TRT2 := -1
-	TRT3 := -1
-	TRT4 := -1
+	TRT2 := 0
+	TRT3 := 0
+	TRT4 := 0
 	TCS[2] := 0
 	TCS[3] := 0
 	TCS[4] := 0

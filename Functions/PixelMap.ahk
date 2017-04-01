@@ -49,6 +49,7 @@ PixelMap()
 		i += 1
 	}Until i = 9
 	SPGx[1]	:= FX - 225
+	SPGx[2]	:= FX - 142
 	SPGx[3] := FX - 71
 	SPGx[5] := FX + 75
 	PGy := FY - 20
@@ -58,6 +59,8 @@ PixelMap()
 	MAPy[1] := FY - 251
 	MAPx[2] := FX + 252
 	MAPy[2] := FY - 247
+	MAPx[3] := FX - 94
+	MAPy[3] := FY - 111
 	MAPx[4] := FX + 252
 	MAPy[4] := FY - 100
 	MAPx[5] := FX + 252
@@ -92,6 +95,13 @@ PixelMap()
 	Resupplyy := FY - 240
 	SResupplyx := FX - 353 ;Side Resupply Button
 	SResupplyy := FY - 250
+	ShipHealthx := FX - 52
+	ShipHealthy1 := FY - 238
+	ShipHealthy2 := FY - 193
+	ShipHealthy3 := FY - 148
+	ShipHealthy4 := FY - 103
+	ShipHealthy5 := FY - 58
+	ShipHealthy6 := FY - 13
 	return
 }
 

@@ -1,4 +1,4 @@
-﻿;AHKCSortie v1.61121
+;AHKCSortie v1.61121
 
 #Persistent
 #SingleInstance
@@ -178,7 +178,7 @@ Sortie:
 	Notify("AHKCSortie", "Preparing to send sortie",1)
 	if not (BP = 1 and DisableCriticalCheck = 1)
 	{
-		if not (World = 1 and Map = 1 and Sparkling = 1)
+		if not (Sparkling = 1)
 		{
 			Repair()
 		}
@@ -302,7 +302,29 @@ Sortie:
 			Sleep 3000
 			ClickS(CNBx,CNBy)
 		}
+		else if tpc = 1
+		{
+			sleep 1000
+			ClickS(FX,FY)
+			GuiControl,, NB, Waiting for health screen
+			sleep 5000
+			GuiControl,, NB, Checking HP
+			loop, 6
+			{
+				GuiControl,, NB, Checking HP %A_Index%
+				tpc5 := PixelGetColorS(ShipHealthx,ShipHealthy%A_Index%,3)
+				if (tpc5 = RedHealthPC)
+				{
+					GuiControl,, NB, RED detected
+					if (sparkle != 1)
+					{
+						NC := Nodes
+					}
+				}
+			}
+		}
 		GuiControl,, NB, Waiting...
+
 		pc := []
 		pc := [HPC,HEPC,CSPC]
 		tpc := WaitForPixelColor(FX,FY,pc,FX,FY)
@@ -405,7 +427,7 @@ Resupply(r)
     Sleep MiscDelay
 	rti := 0
 	rti2 := 5
-	if (World = 1 and Map = 1 and Sparkling = 1)
+	if (Sparkling = 1)
 	{
 		rti2 := 0
 	}
@@ -430,7 +452,7 @@ WorldF:
 		StringReplace, WorldV, WorldV, `n,,All
 		GuiControl,, WorldV, %WorldV%
 		Send, {end}
-		if (WorldV=1 or WorldV=3 or WorldV=5)
+		if (WorldV=1 or WorldV=2 or WorldV=3 or WorldV=5)
 		{
 			World := WorldV
 			GuiControl,, NB, World set
@@ -452,7 +474,7 @@ MapF:
 		StringReplace, MapV, MapV, `n,,All
 		GuiControl,, MapV, %MapV%
 		Send, {end}
-		if (MapV=1 or MapV=2 or MapV=4 or MapV=5)
+		if (MapV=1 or MapV=2 or MapV=3 or MapV=4 or MapV=5)
 		{
 			Map := MapV
 			GuiControl,, NB, Map # set
@@ -477,10 +499,6 @@ NodeCount:
 		if (NodeCount > 0 and NodeCount < 5)
 		{
 			Nodes := NodeCount
-			if Nodes > 1
-			{
-				MsgBox WARNING: Script will continue past first node and will NOT check for critical damage. You risk sinking any girl that is not flagship.
-			}
 			GuiControl,, NB, # of nodes set
 		}
 		else
