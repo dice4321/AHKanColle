@@ -178,7 +178,7 @@ Sortie:
 	Notify("AHKCSortie", "Preparing to send sortie",1)
 	if not (BP = 1 and DisableCriticalCheck = 1)
 	{
-		if not (Sparkling = 1)
+		if not (world = 1 and map = 1)
 		{
 			Repair()
 		}
@@ -253,7 +253,11 @@ Sortie:
 				{
 					ClickS(LAbreastx,LAbreasty)
 				}
-				else
+				else if(world = 3 and map = 2)
+				{
+					ClickS(L_doublex,L_doubley)
+				}
+				else 
 				{
 					ClickS(LAx,LAy)
 				}
@@ -301,14 +305,14 @@ Sortie:
 			GuiControl,, NB, Cancelling night battle
 			Sleep 3000
 			ClickS(CNBx,CNBy)
-		}
-		else if tpc = 1
-		{
-			sleep 1000
+			Sleep 3000
+			GuiControl,, NB, Found Score
+			sleep 6000
 			ClickS(FX,FY)
 			GuiControl,, NB, Waiting for health screen
-			sleep 5000
+			sleep 1500
 			GuiControl,, NB, Checking HP
+			sleep 1500
 			loop, 6
 			{
 				GuiControl,, NB, Checking HP %A_Index%
@@ -316,7 +320,30 @@ Sortie:
 				if (tpc5 = RedHealthPC)
 				{
 					GuiControl,, NB, RED detected
-					if (sparkle != 1)
+					if (world !=1 and map != 1)
+					{
+						NC := Nodes
+					}
+				}
+			}
+		}
+		else if tpc != 2
+		{
+			GuiControl,, NB, Found Score
+			sleep 3000
+			ClickS(FX,FY)
+			GuiControl,, NB, Waiting for health screen
+			sleep 1500
+			GuiControl,, NB, Checking HP
+			sleep 1500
+			loop, 6
+			{
+				GuiControl,, NB, Checking HP %A_Index%
+				tpc5 := PixelGetColorS(ShipHealthx,ShipHealthy%A_Index%,3)
+				if (tpc5 = RedHealthPC)
+				{
+					GuiControl,, NB, RED detected
+					if (world !=1 and map != 1)
 					{
 						NC := Nodes
 					}
@@ -324,15 +351,16 @@ Sortie:
 			}
 		}
 		GuiControl,, NB, Waiting...
-
+		sleep 5000
+		GuiControl,, NB, Checking next screen...
 		pc := []
-		pc := [HPC,HEPC,CSPC]
+		pc := [HPC,HPC,HPC,HPC,HEPC,HEPC,HEPC,CSPC]
 		tpc := WaitForPixelColor(FX,FY,pc,FX,FY)
-		if tpc = 1 or tpc = 2
+		if tpc != 8
 		{
 			Break
 		}
-		else if tpc = 3
+		else if tpc = 8
 		{
 			GuiControl,, NB, Continue screen
 			Sleep 2000
@@ -348,8 +376,26 @@ Sortie:
 				ClickS(CSBx,CSBy)
 			}
 		}
+		else if tpc = 9
+		{
+			ClickS(ESBx,ESBy)
+			Sleep 2000
+			Break
+		}
+
+		else
+		{
+			break
+		}
 		NC += 1
 	}Until NC > Nodes
+	if (tpc6 = ResourceSortiePC)
+	{
+		GuiControl,, NB, Resource screen
+		ClickS(ESBx,ESBy)
+		Sleep 3000
+
+	}
 	GuiControl,, NB, Waiting for home screen
 	pc := []
 	pc := [HPC,HEPC]
@@ -427,7 +473,7 @@ Resupply(r)
     Sleep MiscDelay
 	rti := 0
 	rti2 := 5
-	if (Sparkling = 1)
+	if (world = 1 and map = 1)
 	{
 		rti2 := 0
 	}
