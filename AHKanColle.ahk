@@ -94,6 +94,8 @@ GuiControl, Hide, SEB
 Menu, Main, Add, Pause, Pause2
 Gui, Menu, Main
 Gui, Show, X%TWinX% Y%TWinY% Autosize, AHKanColle
+Gui -AlwaysOnTop
+Gui +AlwaysOnTop
 SetWindow()
 GuiControl, Focus, SE2
 Gui, Show

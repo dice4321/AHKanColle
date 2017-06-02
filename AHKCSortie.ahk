@@ -73,6 +73,8 @@ Menu, Main, Add, Pause, Pause2
 Menu, Main, Add, 0, DN
 Gui, Menu, Main
 Gui, Show, X%TWinX% Y%TWinY% Autosize, AHKCSortie
+Gui -AlwaysOnTop
+Gui +AlwaysOnTop
 SetWindow()
 if DisableCriticalCheck = 1 
 {
@@ -176,6 +178,33 @@ Sortie:
 	GuiControl, Hide, SSB
 	CheckWindow()
 	Notify("AHKCSortie", "Preparing to send sortie",1)
+
+	; tpc := PixelGetColorS(FX,FY,3)
+	; GuiControl,, NB, Color is %tpc%
+	; sleep 2000
+	; GuiControl,, NB, HPC is %HPC%
+	; sleep 2000
+	; if (tpc = HPC)
+	; {
+	; 	GuiControl,, NB, Color is tpc = HPC
+	; 	sleep 2000
+	; }
+
+	; loop, 6
+	; {
+	; 	GuiControl,, NB, Checking HP %A_Index%
+	; 	tpc := PixelGetColorS(ShipHealthx,ShipHealthy[A_Index],3)
+	; 	GuiControl,, NB, Color is %tpc%
+	; 	if (tpc = RedHealthPC)
+	; 	{
+	; 		GuiControl,, NB, RED detected
+	; 		if (world !=1 and map != 1)
+	; 		{
+	; 			NC := Nodes
+	; 		}
+	; 	}
+	; }
+
 	if not (BP = 1 and DisableCriticalCheck = 1)
 	{
 		if not (world = 1 and map = 1)
@@ -196,6 +225,7 @@ Sortie:
 		pc := [HPC]
 		WaitForPixelColor(FX,FY,pc)
 	}
+
 	ClickS(Sx,Sy)
 	GuiControl,, NB, Waiting for sortie screen
 	pc := []
@@ -236,7 +266,7 @@ Sortie:
 	{
 		GuiControl,, NB, Waiting for compass/formation
 		pc := []
-		pc := [CPC,FPC,IBPC]
+		pc := [CPC,FPC,ResourceSortiePC,IBPC]
 		tpc := WaitForPixelColor(LAx,LAy,pc,,,30)
 		Sleep MiscDelay
 		if tpc = 1
@@ -244,7 +274,7 @@ Sortie:
 			ClickS(ESx,ESy)
 			GuiControl,, NB, Waiting for formation
 			pc := []
-			pc := [FPC,CPC,IBPC]
+			pc := [FPC,CPC,ResourceSortiePC,IBPC]
 			tpc2 := WaitForPixelColor(LAx,LAy,pc)
 			if tpc2 = 1
 			{
@@ -262,26 +292,38 @@ Sortie:
 					ClickS(LAx,LAy)
 				}
 			}
-			if tpc2 = 2
+			else if tpc2 = 2
 			{
-			ClickS(ESx,ESy)
-			GuiControl,, NB, Waiting for formation
-			pc := []
-			pc := [FPC,CPC,IBPC]
-			tpc2 := WaitForPixelColor(LAx,LAy,pc)
-			if tpc2 = 1
-			{
-				Sleep MiscDelay
-				if(World = 1 and Map = 5)
+				ClickS(ESx,ESy)
+				GuiControl,, NB, FIRST COMPASS PASSED Waiting for formation
+				pc := []
+				pc := [FPC,CPC,ResourceSortiePC,IBPC]
+				tpc2 := WaitForPixelColor(LAx,LAy,pc)
+				if tpc2 = 1
 				{
-					ClickS(LAbreastx,LAbreasty)
+					Sleep MiscDelay
+					if(World = 1 and Map = 5)
+					{
+						ClickS(LAbreastx,LAbreasty)
+					}
+					else
+					{
+						ClickS(LAx,LAy)
+					}
 				}
-				else
+				else if tpc2 = 2
 				{
-					ClickS(LAx,LAy)
+					pc := []
+					pc := [HPC,HEPC]
+					WaitForPixelColor(FX,FY,pc,ESBx,ESBy)
 				}
-			}
 			} 
+			else if tpc = 3
+			{
+				pc := []
+				pc := [HPC,HEPC]
+				WaitForPixelColor(FX,FY,pc,ESBx,ESBy)
+			}
 		}
 		else if tpc = 2 
 		{
@@ -294,6 +336,12 @@ Sortie:
 				ClickS(LAx,LAy)
 			}
 		}
+		else if tpc = 3
+		{
+			pc := []
+			pc := [HPC,HEPC]
+			WaitForPixelColor(FX,FY,pc,ESBx,ESBy)
+		}
 		GuiControl,, NB, Waiting for results
 		pc := []
 		pc := [SRPC,NBPC]
@@ -305,21 +353,21 @@ Sortie:
 			GuiControl,, NB, Cancelling night battle
 			Sleep 3000
 			ClickS(CNBx,CNBy)
-			Sleep 3000
-			GuiControl,, NB, Found Score
+			GuiControl,, NB, Score Screen
 			sleep 6000
 			ClickS(FX,FY)
 			GuiControl,, NB, Waiting for health screen
-			sleep 1500
+			sleep 4000
 			GuiControl,, NB, Checking HP
-			sleep 1500
 			loop, 6
 			{
 				GuiControl,, NB, Checking HP %A_Index%
-				tpc5 := PixelGetColorS(ShipHealthx,ShipHealthy%A_Index%,3)
-				if (tpc5 = RedHealthPC)
+				tpc := PixelGetColorS(ShipHealthx,ShipHealthy[A_Index],3)
+				GuiControl,, NB, Color is %tpc%
+				if (tpc = RedHealthPC)
 				{
 					GuiControl,, NB, RED detected
+					sleep 1000
 					if (world !=1 and map != 1)
 					{
 						NC := Nodes
@@ -329,20 +377,21 @@ Sortie:
 		}
 		else if tpc != 2
 		{
-			GuiControl,, NB, Found Score
-			sleep 3000
+			GuiControl,, NB, Score Screen
+			sleep 6000
 			ClickS(FX,FY)
 			GuiControl,, NB, Waiting for health screen
-			sleep 1500
+			sleep 4000
 			GuiControl,, NB, Checking HP
-			sleep 1500
 			loop, 6
 			{
 				GuiControl,, NB, Checking HP %A_Index%
-				tpc5 := PixelGetColorS(ShipHealthx,ShipHealthy%A_Index%,3)
-				if (tpc5 = RedHealthPC)
+				tpc := PixelGetColorS(ShipHealthx,ShipHealthy[A_Index],3)
+				GuiControl,, NB, Color is %tpc%
+				if (tpc = RedHealthPC)
 				{
 					GuiControl,, NB, RED detected
+					sleep 1000
 					if (world !=1 and map != 1)
 					{
 						NC := Nodes
@@ -351,11 +400,12 @@ Sortie:
 			}
 		}
 		GuiControl,, NB, Waiting...
-		sleep 5000
+		sleep 1000
 		GuiControl,, NB, Checking next screen...
+		; check resource screen here
 		pc := []
-		pc := [HPC,HPC,HPC,HPC,HEPC,HEPC,HEPC,CSPC]
-		tpc := WaitForPixelColor(FX,FY,pc,FX,FY)
+		pc := [HPC,HPC,HPC,HPC,HEPC,HEPC,HEPC,CSPC,ResourceSortiePC]
+		tpc := WaitForPixelColor(FX,FY,pc,ESBx,ESBy)
 		if tpc != 8
 		{
 			Break
@@ -378,24 +428,26 @@ Sortie:
 		}
 		else if tpc = 9
 		{
-			ClickS(ESBx,ESBy)
-			Sleep 2000
-			Break
+			pc := []
+			pc := [HPC,HEPC]
+			WaitForPixelColor(FX,FY,pc,ESBx,ESBy)
+			break
 		}
-
 		else
 		{
 			break
 		}
 		NC += 1
 	}Until NC > Nodes
-	if (tpc6 = ResourceSortiePC)
-	{
-		GuiControl,, NB, Resource screen
-		ClickS(ESBx,ESBy)
-		Sleep 3000
+	; tpc6 := PixelGetColorS(ShipHealthx,ShipHealthy%A_Index%,3)
+	; if (tpc6 = ResourceSortiePC)
+	; {
+	; 	GuiControl,, NB, Resource screen
+	; 	ClickS(ESBx,ESBy)
+	; 	Sleep 3000
 
-	}
+	; }
+	;after selecting compass goes to resource screen
 	GuiControl,, NB, Waiting for home screen
 	pc := []
 	pc := [HPC,HEPC]
@@ -678,6 +730,7 @@ Initialize()
 	SPGx := Array(item)
 	MAPx := Array(item)
 	MAPy := Array(item)
+	ShipHealthy := Array(item)
 	pc := Array(item)
     Q := Array()
 	NC := 0
