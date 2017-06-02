@@ -98,12 +98,12 @@ PixelMap()
 	SResupplyx := FX - 353 ;Side Resupply Button
 	SResupplyy := FY - 250
 	ShipHealthx := FX - 52
-	ShipHealthy1 := FY - 238
-	ShipHealthy2 := FY - 193
-	ShipHealthy3 := FY - 148
-	ShipHealthy4 := FY - 103
-	ShipHealthy5 := FY - 58
-	ShipHealthy6 := FY - 13
+	ShipHealthy[1] := FY - 238
+	ShipHealthy[2] := FY - 193
+	ShipHealthy[3] := FY - 148
+	ShipHealthy[4] := FY - 103
+	ShipHealthy[5] := FY - 58
+	ShipHealthy[6] := FY - 13
 	return
 }
 
