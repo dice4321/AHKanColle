@@ -104,6 +104,8 @@ PixelMap()
 	ShipHealthy[4] := FY - 103
 	ShipHealthy[5] := FY - 58
 	ShipHealthy[6] := FY - 13
+	HealthScreenx := FX + 21
+	HealthScreeny := FY - 18
 	return
 }
 

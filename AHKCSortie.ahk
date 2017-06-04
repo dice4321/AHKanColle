@@ -346,18 +346,16 @@ Sortie:
 		pc := []
 		pc := [SRPC,NBPC]
 		WaitForPixelColor(FX,FY,pc,,,250)
-		Sleep 5000
 		tpc := WaitForPixelColor(FX,FY,pc)
 		if tpc = 2
 		{
 			GuiControl,, NB, Cancelling night battle
 			Sleep 3000
 			ClickS(CNBx,CNBy)
-			GuiControl,, NB, Score Screen
-			sleep 6000
-			ClickS(FX,FY)
-			GuiControl,, NB, Waiting for health screen
-			sleep 4000
+			GuiControl,, NB, Waiting for score
+			pc := []
+			pc := [HealthScreenPC]
+			WaitForPixelColor(HealthScreenx,HealthScreeny,pc,HealthScreenx,HealthScreeny,250)
 			GuiControl,, NB, Checking HP
 			loop, 6
 			{
@@ -377,11 +375,10 @@ Sortie:
 		}
 		else if tpc != 2
 		{
-			GuiControl,, NB, Score Screen
-			sleep 6000
-			ClickS(FX,FY)
-			GuiControl,, NB, Waiting for health screen
-			sleep 4000
+			GuiControl,, NB, Waiting for score
+			pc := []
+			pc := [HealthScreenPC]
+			WaitForPixelColor(HealthScreenx,HealthScreeny,pc,HealthScreenx,HealthScreeny,250)
 			GuiControl,, NB, Checking HP
 			loop, 6
 			{
