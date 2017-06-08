@@ -266,16 +266,17 @@ Sortie:
 	{
 		GuiControl,, NB, Waiting for compass/formation
 		pc := []
-		pc := [CPC,FPC,ResourceSortiePC,IBPC]
+		pc := [CPC,FPC,IBPC]
 		tpc := WaitForPixelColor(LAx,LAy,pc,,,30)
 		Sleep MiscDelay
 		if tpc = 1
 		{
 			ClickS(ESx,ESy)
+			sleep 1000
 			GuiControl,, NB, Waiting for formation
 			pc := []
 			pc := [FPC,CPC,ResourceSortiePC,IBPC]
-			tpc2 := WaitForPixelColor(LAx,LAy,pc)
+			tpc2 := WaitForPixelColor(LAx,LAy,pc,,,30)
 			if tpc2 = 1
 			{
 				Sleep MiscDelay
@@ -298,8 +299,8 @@ Sortie:
 				GuiControl,, NB, FIRST COMPASS PASSED Waiting for formation
 				pc := []
 				pc := [FPC,CPC,ResourceSortiePC,IBPC]
-				tpc2 := WaitForPixelColor(LAx,LAy,pc)
-				if tpc2 = 1
+				tpc3 := WaitForPixelColor(LAx,LAy,pc,,,30)
+				if tpc3 = 1
 				{
 					Sleep MiscDelay
 					if(World = 1 and Map = 5)
@@ -311,18 +312,28 @@ Sortie:
 						ClickS(LAx,LAy)
 					}
 				}
-				else if tpc2 = 2
+				else if tpc3 = 2
 				{
 					pc := []
 					pc := [HPC,HEPC]
 					WaitForPixelColor(FX,FY,pc,ESBx,ESBy)
+					break
 				}
+				else if tpc3 = 3
+				{
+					pc := []
+					pc := [HPC,HEPC]
+					WaitForPixelColor(FX,FY,pc,ESBx,ESBy)
+					break
+				}
+
 			} 
-			else if tpc = 3
+			else if tpc2 = 3
 			{
 				pc := []
 				pc := [HPC,HEPC]
 				WaitForPixelColor(FX,FY,pc,ESBx,ESBy)
+				break
 			}
 		}
 		else if tpc = 2 
@@ -336,15 +347,9 @@ Sortie:
 				ClickS(LAx,LAy)
 			}
 		}
-		else if tpc = 3
-		{
-			pc := []
-			pc := [HPC,HEPC]
-			WaitForPixelColor(FX,FY,pc,ESBx,ESBy)
-		}
 		GuiControl,, NB, Waiting for results
 		pc := []
-		pc := [SRPC,NBPC]
+		pc := [SRPC,NBPC,HPC,HEPC]
 		WaitForPixelColor(FX,FY,pc,,,250)
 		tpc := WaitForPixelColor(FX,FY,pc)
 		if tpc = 2
@@ -352,11 +357,12 @@ Sortie:
 			GuiControl,, NB, Cancelling night battle
 			Sleep 3000
 			ClickS(CNBx,CNBy)
-			GuiControl,, NB, Waiting for score
+			GuiControl,, NB, Waiting for score1
 			pc := []
 			pc := [HealthScreenPC]
 			WaitForPixelColor(HealthScreenx,HealthScreeny,pc,HealthScreenx,HealthScreeny,250)
 			GuiControl,, NB, Checking HP
+			sleep 1000
 			loop, 6
 			{
 				GuiControl,, NB, Checking HP %A_Index%
@@ -368,18 +374,23 @@ Sortie:
 					sleep 1000
 					if (world !=1 and map != 1)
 					{
-						NC := Nodes
+						NC := Nodes + 1
 					}
 				}
 			}
 		}
-		else if tpc != 2
+		else if (tpc = 3 or tpc = 4)
 		{
-			GuiControl,, NB, Waiting for score
+			Break
+		}
+		else if (tpc != 2 or tpc != 3 or tpc != 4) 
+		{
+			GuiControl,, NB, Waiting for score2
 			pc := []
 			pc := [HealthScreenPC]
 			WaitForPixelColor(HealthScreenx,HealthScreeny,pc,HealthScreenx,HealthScreeny,250)
 			GuiControl,, NB, Checking HP
+			sleep 1000
 			loop, 6
 			{
 				GuiControl,, NB, Checking HP %A_Index%
@@ -391,7 +402,7 @@ Sortie:
 					sleep 1000
 					if (world !=1 and map != 1)
 					{
-						NC := Nodes
+						NC := Nodes + 1
 					}
 				}
 			}
@@ -401,7 +412,7 @@ Sortie:
 		GuiControl,, NB, Checking next screen...
 		; check resource screen here
 		pc := []
-		pc := [HPC,HPC,HPC,HPC,HEPC,HEPC,HEPC,CSPC,ResourceSortiePC]
+		pc := [HPC,HPC,HPC,HPC,HEPC,HEPC,HEPC,CSPC]
 		tpc := WaitForPixelColor(FX,FY,pc,ESBx,ESBy)
 		if tpc != 8
 		{
@@ -422,13 +433,6 @@ Sortie:
 				GuiControl,, NB, Continuing Sortie
 				ClickS(CSBx,CSBy)
 			}
-		}
-		else if tpc = 9
-		{
-			pc := []
-			pc := [HPC,HEPC]
-			WaitForPixelColor(FX,FY,pc,ESBx,ESBy)
-			break
 		}
 		else
 		{
