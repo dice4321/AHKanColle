@@ -372,7 +372,14 @@ Sortie:
 				{
 					GuiControl,, NB, RED detected
 					sleep 1000
-					NC := Nodes
+					if(world = 1 and map = 1)
+					{
+						
+					}
+					Else
+					{
+						NC := Nodes
+					}
 				}
 			}
 		}
@@ -397,7 +404,14 @@ Sortie:
 				{
 					GuiControl,, NB, RED detected
 					sleep 1000
-					NC := Nodes
+					if(world = 1 and map = 1)
+					{
+						
+					}
+					Else
+					{
+						NC := Nodes
+					}
 				}
 			}
 		}
