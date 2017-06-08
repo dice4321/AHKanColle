@@ -372,10 +372,7 @@ Sortie:
 				{
 					GuiControl,, NB, RED detected
 					sleep 1000
-					if (world !=1 and map != 1)
-					{
-						NC := Nodes + 1
-					}
+					NC := Nodes
 				}
 			}
 		}
@@ -400,17 +397,18 @@ Sortie:
 				{
 					GuiControl,, NB, RED detected
 					sleep 1000
-					if (world !=1 and map != 1)
-					{
-						NC := Nodes + 1
-					}
+					NC := Nodes
 				}
 			}
 		}
 		GuiControl,, NB, Waiting...
 		sleep 1000
 		GuiControl,, NB, Checking next screen...
-		; check resource screen here
+		if(NC >= Nodes)
+		{
+			GuiControl,, NB, Sortie ending
+			sleep 1000
+		}
 		pc := []
 		pc := [HPC,HPC,HPC,HPC,HEPC,HEPC,HEPC,CSPC]
 		tpc := WaitForPixelColor(FX,FY,pc,ESBx,ESBy)
@@ -422,7 +420,7 @@ Sortie:
 		{
 			GuiControl,, NB, Continue screen
 			Sleep 2000
-			if (NC = Nodes)
+			if (NC >= Nodes)
 			{
 				GuiControl,, NB, Ending sortie
 				ClickS(ESBx,ESBy)
