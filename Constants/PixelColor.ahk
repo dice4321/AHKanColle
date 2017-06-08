@@ -31,4 +31,4 @@ EX4PC := 0x77B9B9 ; Expedition 4 highlighted
 PG2SPC := 0xFF9696 ; page 2 sortie
 HealthScreenPC := 0xFFF6F2
 RedHealthPC := 0x6A2C28
-ResourceSortiePC := 0x000408
+ResourceSortiePC := 0x203E4B
